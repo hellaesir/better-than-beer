@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace BtbDomain.DTOs
 {
-    public class MeasureCreateDTO
+    public class MeasureDTO
     {
+        public int Id { get; set; }
         public string Type { get; set; }
         public decimal Quantity { get; set; }
     }

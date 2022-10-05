@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BtbRepository.Repositories
 {
-    public class IngredientRepository : IIngredient
+    public class IngredientRepository : IIngredientRepository
     {
         private readonly AppDbContext _context;
 
@@ -18,8 +18,10 @@ namespace BtbRepository.Repositories
             _context = context;
         }
 
-
-
+        public Task<int> Count()
+        {
+            return _context.Ingredients.CountAsync();
+        }
 
         public async Task Create(Ingredient entity)
         {
@@ -34,7 +36,7 @@ namespace BtbRepository.Repositories
 
         public Task<List<Ingredient>> GetList(int pageIndex, int pageSize)
         {
-            return _context.Ingredients.Skip(pageIndex * pageSize).Take(pageSize).ToListAsync();
+            return _context.Ingredients.Skip((pageIndex-1) * pageSize).Take(pageSize).ToListAsync();
         }
 
         public async Task Update(Ingredient entity)
@@ -42,7 +44,7 @@ namespace BtbRepository.Repositories
             var dbEntity = await _context.Ingredients.FirstOrDefaultAsync(f => f.Id == entity.Id); 
             if (dbEntity != null)
             {
-                dbEntity = entity;
+                dbEntity.Name = entity.Name;
                 await _context.SaveChangesAsync();
             }
         }

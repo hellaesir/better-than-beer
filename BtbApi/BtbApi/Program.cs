@@ -1,4 +1,10 @@
+using AutoMapper;
+using BtbDomain.MappingProfiles;
 using BtbRepository;
+using BtbRepository.Interfaces;
+using BtbRepository.Repositories;
+using BtbService.Interfaces;
+using BtbService.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +21,17 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 {
     opt.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
+
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new IngredientProfile());
+});
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
+builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
+builder.Services.AddScoped<IIngredientService, IngredientService>();
+
 
 var app = builder.Build();
 

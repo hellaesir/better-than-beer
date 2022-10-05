@@ -12,5 +12,6 @@ namespace BtbRepository.Base
         Task Update(T entity);
         Task<T> GetById(int id);
         Task<List<T>> GetList(int pageIndex, int pageSize);
+        Task<int> Count();
     }
 }

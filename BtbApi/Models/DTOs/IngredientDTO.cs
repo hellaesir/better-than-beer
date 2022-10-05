@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace BtbDomain.DTOs
 {
-    public class IngredientCreateDTO
+    public class IngredientDTO
     {
+        public int Id { get; set; }
         public string Name { get; set; }
     }
 }

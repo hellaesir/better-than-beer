@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BtbRepository.Interfaces
 {
-    public interface IIngredient : IBaseRepository<Ingredient>
+    public interface IMeasureRepository : IBaseRepository<Measure>
     {
     }
 }

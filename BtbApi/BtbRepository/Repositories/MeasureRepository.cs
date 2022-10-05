@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BtbRepository.Repositories
 {
-    public class MeasureRepository : IMeasure
+    public class MeasureRepository : IMeasureRepository
     {
         private readonly AppDbContext _context;
 
@@ -18,8 +18,10 @@ namespace BtbRepository.Repositories
             _context = context;
         }
 
-
-
+        public Task<int> Count()
+        {
+            return _context.Measures.CountAsync();
+        }
 
         public async Task Create(Measure entity)
         {
