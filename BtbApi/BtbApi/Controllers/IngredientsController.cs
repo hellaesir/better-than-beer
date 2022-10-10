@@ -1,21 +1,22 @@
-﻿using BtbDomain.DTOs;
+﻿using BtbApi.Controllers.Base;
+using BtbDomain.DTOs;
 using BtbDomain.DTOs.Creates;
 using BtbService.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace BtbApi.Controllers
 {
     [Route("api/ingredients")]
     [ApiController]
-    public class IngredientsController : ControllerBase
+    public class IngredientsController : BaseController
     {
-        private readonly ILogger<IngredientsController> _logger;
         private readonly IIngredientService _ingredientService;
 
-        public IngredientsController(ILogger<IngredientsController> logger, IIngredientService? ingredientService)
+        public IngredientsController(IConfiguration configuration, IIngredientService? ingredientService, IActiveUserService activeUserService) : base(configuration, activeUserService)
         {
-            _logger = logger;
+
             _ingredientService = ingredientService;
         }
 
@@ -27,7 +28,7 @@ namespace BtbApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetList([FromQuery] int pageIndex, [FromQuery]int pageSize)
+        public async Task<IActionResult> GetList([FromQuery] int pageIndex, [FromQuery] int pageSize)
         {
             return Ok(await _ingredientService.GetList(pageIndex, pageSize));
         }

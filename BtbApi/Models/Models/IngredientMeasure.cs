@@ -20,5 +20,20 @@ namespace BtbDomain.Models
 
         public Measure Measure { get; set; }
         public int MeasureId { get; set; }
+
+
+
+        [Required]
+        public bool Active { get; set; }
+        [Required]
+        public DateTime CreationDate { get; set; }
+        [Required]
+        public DateTime UpdateDate { get; set; }
+        [Required]
+        public int CreationUserId { get; set; }
+        public User CreationUser { get; set; }
+        [Required]
+        public int UpdateUserId { get; set; }
+        public User UpdateUser { get; set; }
     }
 }

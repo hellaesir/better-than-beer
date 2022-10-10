@@ -1,4 +1,5 @@
-﻿using BtbRepository.Interfaces;
+﻿using BtbDomain.DTOs;
+using BtbRepository.Interfaces;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -23,8 +24,14 @@ namespace BtbRepository.Repositories
             return _context.Ingredients.CountAsync();
         }
 
-        public async Task Create(Ingredient entity)
+        public async Task Create(Ingredient entity, ActiveUserDTO activeUser)
         {
+            entity.CreationUserId = activeUser.Id;
+            entity.CreationDate = DateTime.Now;
+            entity.UpdateUserId = activeUser.Id;
+            entity.UpdateDate = DateTime.Now;
+            entity.Active = true;
+
             _context.Ingredients.Add(entity);
             await _context.SaveChangesAsync();
         }
@@ -36,17 +43,16 @@ namespace BtbRepository.Repositories
 
         public Task<List<Ingredient>> GetList(int pageIndex, int pageSize)
         {
-            return _context.Ingredients.Skip((pageIndex-1) * pageSize).Take(pageSize).ToListAsync();
+            return _context.Ingredients.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
         }
 
-        public async Task Update(Ingredient entity)
+        public Task Update(Ingredient entity, ActiveUserDTO activeUser)
         {
-            var dbEntity = await _context.Ingredients.FirstOrDefaultAsync(f => f.Id == entity.Id); 
-            if (dbEntity != null)
-            {
-                dbEntity.Name = entity.Name;
-                await _context.SaveChangesAsync();
-            }
+            entity.UpdateUserId = activeUser.Id;
+            entity.UpdateDate = DateTime.Now;
+
+            _context.Ingredients.Update(entity);
+            return _context.SaveChangesAsync();
         }
     }
 }

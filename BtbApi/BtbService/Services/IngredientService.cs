@@ -5,8 +5,10 @@ using BtbDomain.DTOs.Creates;
 using BtbDomain.Models;
 using BtbRepository.Interfaces;
 using BtbRepository.Repositories;
+using BtbService.Bases;
 using BtbService.Interfaces;
 using Domain.Models;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +17,12 @@ using System.Threading.Tasks;
 
 namespace BtbService.Services
 {
-    public class IngredientService : IIngredientService
+    public class IngredientService : BaseService, IIngredientService
     {
         private readonly IMapper _mapper;
         private readonly IIngredientRepository _ingredientRepository;
-        public IngredientService(IMapper mapper, IIngredientRepository ingredientRepository)
+
+        public IngredientService(IMapper mapper, IConfiguration configuration, IActiveUserService activeUserService, IIngredientRepository ingredientRepository) : base(configuration, activeUserService)
         {
             _mapper = mapper;
             _ingredientRepository = ingredientRepository;
@@ -28,7 +31,7 @@ namespace BtbService.Services
         public async Task Create(IngredientCreateDTO entity)
         {
             Ingredient ingredient = _mapper.Map<Ingredient>(entity);
-            await _ingredientRepository.Create(ingredient);
+            await _ingredientRepository.Create(ingredient, ActiveUser);
         }
 
         public async Task<IngredientDTO> GetById(int id)
@@ -55,7 +58,7 @@ namespace BtbService.Services
 
         public async Task Update(IngredientUpdateDTO entity)
         {
-            await _ingredientRepository.Update(_mapper.Map<Ingredient>(entity));
+            await _ingredientRepository.Update(_mapper.Map<Ingredient>(entity), ActiveUser);
         }
     }
 }

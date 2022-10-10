@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.32916.344
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BtbApi", "BtbApi\BtbApi.csproj", "{B9DCE4AA-CB0E-41E9-9840-855B69BC13B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BtbApi", "BtbApi\BtbApi.csproj", "{B9DCE4AA-CB0E-41E9-9840-855B69BC13B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BtbService", "BtbService\BtbService.csproj", "{A90DEAB4-7B6D-4FD7-A523-21BE8311AAB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BtbService", "BtbService\BtbService.csproj", "{A90DEAB4-7B6D-4FD7-A523-21BE8311AAB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BtbRepository", "BtbRepository\BtbRepository.csproj", "{7F325667-CAA5-420B-A714-0D0EAB06EAF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BtbRepository", "BtbRepository\BtbRepository.csproj", "{7F325667-CAA5-420B-A714-0D0EAB06EAF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BtbDomain", "Models\BtbDomain.csproj", "{F0465EC6-F556-4101-8935-AAABC9C5BC4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BtbDomain", "Models\BtbDomain.csproj", "{F0465EC6-F556-4101-8935-AAABC9C5BC4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
