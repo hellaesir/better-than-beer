@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,15 +29,19 @@ namespace BtbDomain.Models
 
         [Required]
         public bool Active { get; set; }
-        [Required]
-        public DateTime CreationDate { get; set; }
-        [Required]
-        public DateTime UpdateDate { get; set; }
-        [Required]
-        public int CreationUserId { get; set; }
-        public User CreationUser { get; set; }
-        [Required]
-        public int UpdateUserId { get; set; }
-        public User UpdateUser { get; set; }
+        //[Required]
+        //public DateTime CreationDate { get; set; }
+        //[Required]
+        //public DateTime UpdateDate { get; set; }
+        //[Required]
+        //[ForeignKey("CreationUser")]
+        //public int CreationUserId { get; set; }
+        //[ForeignKey("CreationUserId")]
+        //public User CreationUser { get; set; }
+        //[Required]
+        //[ForeignKey("UpdateUser")]
+        //public int UpdateUserId { get; set; }
+        //[ForeignKey("UpdateUserId")]
+        //public User UpdateUser { get; set; }
     }
 }

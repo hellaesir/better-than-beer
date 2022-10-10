@@ -25,11 +25,11 @@ namespace BtbRepository.Repositories
 
         public Task Create(User entity, ActiveUserDTO activeUser)
         {
-            entity.CreationUserId = activeUser.Id;
-            entity.CreationDate = DateTime.Now;
-            entity.UpdateUserId = activeUser.Id;
-            entity.UpdateDate = DateTime.Now;
-            entity.Active = true;
+            //entity.CreationUserId = activeUser.Id;
+            //entity.CreationDate = DateTime.Now;
+            //entity.UpdateUserId = activeUser.Id;
+            //entity.UpdateDate = DateTime.Now;
+            //entity.Active = true;
 
             _context.Users.Add(entity);
             return _context.SaveChangesAsync();
@@ -52,8 +52,8 @@ namespace BtbRepository.Repositories
 
         public Task Update(User entity, ActiveUserDTO activeUser)
         {
-            entity.UpdateUserId = activeUser.Id;
-            entity.UpdateDate = DateTime.Now;
+            //entity.UpdateUserId = activeUser.Id;
+            //entity.UpdateDate = DateTime.Now;
 
             _context.Users.Update(entity);
             return _context.SaveChangesAsync();

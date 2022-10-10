@@ -25,6 +25,15 @@ namespace BtbRepository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CreationUserId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("DrinkId")
                         .HasColumnType("int");
 
@@ -34,13 +43,23 @@ namespace BtbRepository.Migrations
                     b.Property<int>("MeasureId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UpdateUserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CreationUserId");
 
                     b.HasIndex("DrinkId");
 
                     b.HasIndex("IngredientId");
 
                     b.HasIndex("MeasureId");
+
+                    b.HasIndex("UpdateUserId");
 
                     b.ToTable("IngredientsMeasures");
                 });
@@ -51,6 +70,15 @@ namespace BtbRepository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CreationUserId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("DrinkId")
                         .HasColumnType("int");
 
@@ -58,9 +86,19 @@ namespace BtbRepository.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UpdateUserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("CreationUserId");
+
                     b.HasIndex("DrinkId");
+
+                    b.HasIndex("UpdateUserId");
 
                     b.ToTable("RecipeSteps");
                 });
@@ -70,6 +108,9 @@ namespace BtbRepository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -107,6 +148,15 @@ namespace BtbRepository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CreationUserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(1000)
@@ -130,7 +180,17 @@ namespace BtbRepository.Migrations
                         .HasMaxLength(2)
                         .HasColumnType("int unsigned");
 
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UpdateUserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CreationUserId");
+
+                    b.HasIndex("UpdateUserId");
 
                     b.ToTable("Drinks");
                 });
@@ -141,12 +201,31 @@ namespace BtbRepository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CreationUserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UpdateUserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CreationUserId");
+
+                    b.HasIndex("UpdateUserId");
 
                     b.ToTable("Ingredients");
                 });
@@ -157,19 +236,44 @@ namespace BtbRepository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CreationUserId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(65,30)");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UpdateUserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CreationUserId");
+
+                    b.HasIndex("UpdateUserId");
 
                     b.ToTable("Measures");
                 });
 
             modelBuilder.Entity("BtbDomain.Models.IngredientMeasure", b =>
                 {
+                    b.HasOne("BtbDomain.Models.User", "CreationUser")
+                        .WithMany()
+                        .HasForeignKey("CreationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Models.Drink", null)
                         .WithMany("IngredientsMeasures")
                         .HasForeignKey("DrinkId");
@@ -186,16 +290,99 @@ namespace BtbRepository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("BtbDomain.Models.User", "UpdateUser")
+                        .WithMany()
+                        .HasForeignKey("UpdateUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreationUser");
+
                     b.Navigation("Ingredient");
 
                     b.Navigation("Measure");
+
+                    b.Navigation("UpdateUser");
                 });
 
             modelBuilder.Entity("BtbDomain.Models.RecipeStep", b =>
                 {
+                    b.HasOne("BtbDomain.Models.User", "CreationUser")
+                        .WithMany()
+                        .HasForeignKey("CreationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Models.Drink", null)
                         .WithMany("Steps")
                         .HasForeignKey("DrinkId");
+
+                    b.HasOne("BtbDomain.Models.User", "UpdateUser")
+                        .WithMany()
+                        .HasForeignKey("UpdateUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreationUser");
+
+                    b.Navigation("UpdateUser");
+                });
+
+            modelBuilder.Entity("Domain.Models.Drink", b =>
+                {
+                    b.HasOne("BtbDomain.Models.User", "CreationUser")
+                        .WithMany()
+                        .HasForeignKey("CreationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BtbDomain.Models.User", "UpdateUser")
+                        .WithMany()
+                        .HasForeignKey("UpdateUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreationUser");
+
+                    b.Navigation("UpdateUser");
+                });
+
+            modelBuilder.Entity("Domain.Models.Ingredient", b =>
+                {
+                    b.HasOne("BtbDomain.Models.User", "CreationUser")
+                        .WithMany()
+                        .HasForeignKey("CreationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BtbDomain.Models.User", "UpdateUser")
+                        .WithMany()
+                        .HasForeignKey("UpdateUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreationUser");
+
+                    b.Navigation("UpdateUser");
+                });
+
+            modelBuilder.Entity("Domain.Models.Measure", b =>
+                {
+                    b.HasOne("BtbDomain.Models.User", "CreationUser")
+                        .WithMany()
+                        .HasForeignKey("CreationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BtbDomain.Models.User", "UpdateUser")
+                        .WithMany()
+                        .HasForeignKey("UpdateUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreationUser");
+
+                    b.Navigation("UpdateUser");
                 });
 
             modelBuilder.Entity("Domain.Models.Drink", b =>
