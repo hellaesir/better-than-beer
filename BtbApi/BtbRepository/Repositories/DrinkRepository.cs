@@ -43,7 +43,11 @@ namespace BtbRepository.Repositories
 
         public Task<Drink> GetById(int id)
         {
-            return _context.Drinks.FirstOrDefaultAsync(f => f.Id == id);
+            return _context.Drinks.
+                Include(f => f.Steps).
+                Include(f => f.IngredientsMeasures).ThenInclude(f => f.Ingredient).
+                Include(f => f.IngredientsMeasures).ThenInclude(f => f.Measure).
+                FirstOrDefaultAsync(f => f.Id == id);
         }
 
         public Task<List<Drink>> GetByIngredientId(int ingredientId)
