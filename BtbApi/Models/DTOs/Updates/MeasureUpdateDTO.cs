@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BtbDomain.DTOs.Creates
+namespace BtbDomain.DTOs
 {
-    public class MeasureCreateDTO
+    public class MeasureUpdateDTO
     {
+        public int Id { get; set; }
         public string Type { get; set; }
         public decimal Quantity { get; set; }
     }
